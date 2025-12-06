@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Examen Parcial - Generación de Contenidos Multimedia</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* === RESET Y BASE === */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --primary: #FF6B9D;
+      --secondary: #C44569;
+      --accent: #FEC163;
+      --dark: #1A1A2E;
+      --darker: #0F0F1E;
+      --light: #EAEAEA;
+      --card-bg: #16213E;
+      --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--darker);
+      color: var(--light);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    /* Fondo animado */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(79, 172, 254, 0.1) 0%, transparent 50%);
+      z-index: -1;
+      animation: bgShift 20s ease infinite;
+    }
+    
+    @keyframes bgShift {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+    
+    /* === HEADER === */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(26, 26, 46, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid rgba(255, 107, 157, 0.3);
+      z-index: 1000;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+    }
+    
+    header h1 {
+      font-family: 'Space Grotesk', monospace;
+      font-size: 1.4rem;
+      font-weight: 700;
+      background: var(--gradient-2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    nav a {
+      color: var(--light);
+      text-decoration: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    nav a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--gradient-2);
+      transition: left 0.3s ease;
+      z-index: -1;
+    }
+    
+    nav a:hover::before {
+      left: 0;
+    }
+    
+    nav a:hover {
+      color: white;
+      transform: translateY(-2px);
+    }
+    
+    /* === MAIN === */
+    main {
+      margin-top: 100px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 2rem;
+    }
+    
+    .section {
+      margin-bottom: 4rem;
+      animation: fadeInUp 0.8s ease;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    h2 {
+      font-family: 'Space Grotesk', monospace;
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      background: var(--gradient-3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    /* === SECCIÓN INICIO === */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      padding: 3rem;
+      background: rgba(22, 33, 62, 0.6);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 107, 157, 0.2);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+    
+    .hero-content h2 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    
+    .hero-content p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+    }
+    
+    .description-list {
+      list-style: none;
+      margin: 1.5rem 0;
+    }
+    
+    .description-list li {
+      padding: 0.7rem 0;
+      padding-left: 2rem;
+      position: relative;
+      font-size: 1.05rem;
+    }
+    
+    .description-list li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-size: 1.3rem;
+    }
+    
+    .meta-list {
+      list-style: none;
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      border-left: 4px solid var(--primary);
+    }
+    
+    .meta-list li {
+      padding: 0.5rem 0;
+      font-size: 1rem;
+    }
+    
+    .hero-media {
+      position: relative;
+    }
+    
+    .hero-media iframe {
+      width: 100%;
+      height: 350px;
+      border-radius: 20px;
+      border: 3px solid var(--primary);
+      box-shadow: 0 20px 60px rgba(255, 107, 157, 0.3);
+    }
+    
+    figcaption {
+      text-align: center;
+      margin-top: 1rem;
+      font-style: italic;
+      opacity: 0.8;
+    }
+    
+    /* === GAMIFICACIÓN === */
+    .game-container {
+      background: rgba(22, 33, 62, 0.6);
+      padding: 2.5rem;
+      border-radius: 20px;
+      border: 1px solid rgba(79, 172, 254, 0.3);
+    }
+    
+    .lead {
+      font-size: 1.15rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    
+    .game-card h3 {
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+    }
+    
+    .game-stats {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    
+    .game-stats > div {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      font-size: 1.1rem;
+    }
+    
+    .game-stats span {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 1.3rem;
+    }
+    
+    .board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin: 2rem 0;
+      perspective: 1000px;
+    }
+    
+    .card {
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .card:hover:not(.flipped) {
+      transform: scale(1.05);
+    }
+    
+    .card .front,
+    .card .back {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 15px;
+      backface-visibility: hidden;
+      font-size: 3rem;
+    }
+    
+    .card .front {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      font-weight: 700;
+    }
+    
+    .card .back {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      transform: rotateY(180deg);
+    }
+    
+    .card.flipped {
+      transform: rotateY(180deg);
+    }
+    
+    .game-controls {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      padding: 0.9rem 2rem;
+      border: none;
+      border-radius: 25px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Poppins', sans-serif;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn.primary {
+      background: var(--gradient-2);
+      color: white;
+      box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
+    }
+    
+    .btn:not(.primary) {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--light);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    }
+    
+    .game-message {
+      margin-top: 1.5rem;
+      padding: 1.5rem;
+      background: rgba(79, 172, 254, 0.2);
+      border-radius: 12px;
+      border-left: 4px solid var(--accent);
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-align: center;
+    }
+    
+    /* === BASES DE DATOS === */
+    .infografia-container {
+      background: rgba(22, 33, 62, 0.6);
+      padding: 2.5rem;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 107, 157, 0.3);
+    }
+    
+    .infografia iframe {
+      width: 100%;
+      height: 700px;
+      border: 3px solid var(--primary);
+      border-radius: 15px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+    
+    .download-btn {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 1rem 2rem;
+      background: var(--gradient-3);
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);
+    }
+    
+    .download-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(79, 172, 254, 0.5);
+    }
+    
+    /* === MULTIMEDIA === */
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .media-grid figure {
+      background: rgba(22, 33, 62, 0.6);
+      padding: 1.5rem;
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .media-grid video,
+    .media-grid audio {
+      width: 100%;
+      border-radius: 10px;
+    }
+    
+    /* === CONTACTO === */
+    .contact-form {
+      display: grid;
+      gap: 1.5rem;
+      background: rgba(22, 33, 62, 0.6);
+      padding: 2.5rem;
+      border-radius: 20px;
+      border: 1px solid rgba(254, 193, 99, 0.3);
+    }
+    
+    .contact-form label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--accent);
+    }
+    
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--light);
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: rgba(255, 255, 255, 0.08);
+    }
+    
+    .contact-form textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+    
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    
+    .success {
+      color: #4ade80;
+      font-weight: 600;
+    }
+    
+    /* === FOOTER === */
+    footer {
+      background: rgba(15, 15, 30, 0.95);
+      border-top: 2px solid rgba(255, 107, 157, 0.3);
+      padding: 2rem;
+      text-align: center;
+      margin-top: 4rem;
+    }
+    
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      color: var(--light);
+      font-size: 1rem;
+    }
+    
+    /* === RESPONSIVE === */
+    @media (max-width: 768px) {
+      .header-inner {
+        flex-direction: column;
+        padding: 1rem;
+      }
+      
+      header h1 {
+        font-size: 1.1rem;
+        text-align: center;
+      }
+      
+      nav ul {
+        justify-content: center;
+      }
+      
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 2rem;
+      }
+      
+      .hero-content h2 {
+        font-size: 2rem;
+      }
+      
+      h2 {
+        font-size: 2rem;
+      }
+      
+      .board {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+      
+      .card .front,
+      .card .back {
+        font-size: 2rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      main {
+        padding: 1rem;
+      }
+      
+      .hero {
+        padding: 1.5rem;
+      }
+      
+      .hero-content h2 {
+        font-size: 1.8rem;
+      }
+      
+      nav a {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.85rem;
+      }
+      
+      .game-stats {
+        gap: 1rem;
+      }
+      
+      .game-stats > div {
+        padding: 0.8rem 1rem;
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <h1>🎓 UMA - Examen Parcial Multimedia</h1>
+      <nav aria-label="Navegación principal">
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#gamificacion">Gamificación</a></li>
+          <li><a href="#bases-datos">Bases de Datos</a></li>
+          <li><a href="#multimedia">Multimedia</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- SECCIÓN INICIO -->
+    <section id="inicio" class="section hero">
+      <article class="hero-content">
+        <h2>Proyecto Web Académico</h2>
+        <p>
+          Este sitio web ha sido desarrollado como parte del 
+          <strong>Examen Parcial de la asignatura Generación de Contenidos Multimedia</strong>
+          de la Universidad Modular Abierta (UMA). El proyecto demuestra competencias en:
+        </p>
+        
+        <ul class="description-list">
+          <li>Aplicación de HTML5 semántico</li>
+          <li>Diseño responsivo con CSS3</li>
+          <li>Integración de elementos multimedia</li>
+          <li>Implementación de un juego interactivo</li>
+          <li>Uso de infografías académicas</li>
+        </ul>
+        
+        <ul class="meta-list">
+          <li><strong>Estudiante:</strong> Johanna Elizabeth Alfaro Lima</li>
+          <li><strong>Carné:</strong> AL241100025</li>
+          <li><strong>Asignatura:</strong> Generación de Contenido Multimedia</li>
+          <li><strong>Docente:</strong> Ing. Guillermo A. Pérez Mancía</li>
+        </ul>
+      </article>
+      
+      <figure class="hero-media">
+        <iframe 
+          src="https://www.youtube.com/embed/UB1O30fR-EE"
+          title="Video introductorio - HTML CSS JavaScript"
+          allowfullscreen>
+        </iframe>
+        <figcaption>Introducción al Desarrollo Web Moderno</figcaption>
+      </figure>
+    </section>
+
+    <!-- SECCIÓN GAMIFICACIÓN -->
+    <section id="gamificacion" class="section">
+      <h2>🎮 Gamificación - Juego de Memoria</h2>
+      
+      <div class="game-container">
+        <p class="lead">
+          Este juego interactivo forma parte del enfoque de gamificación,
+          permitiendo reforzar habilidades cognitivas mediante la búsqueda de parejas.
+        </p>
+        
+        <article class="game-card">
+          <h3>Memory Game - Encuentra las parejas</h3>
+          
+          <div class="game-stats">
+            <div><strong>Movimientos:</strong> <span id="moves">0</span></div>
+            <div><strong>Tiempo:</strong> <span id="timer">00:00</span></div>
+            <div><strong>Parejas:</strong> <span id="matches">0</span> / <span id="totalPairs">8</span></div>
+          </div>
+          
+          <div id="board" class="board"></div>
+          
+          <div class="game-controls">
+            <button id="startBtn" class="btn primary">🔄 Reiniciar</button>
+            <button id="easyBtn" class="btn">Fácil (8 parejas)</button>
+            <button id="hardBtn" class="btn">Difícil (12 parejas)</button>
+          </div>
+          
+          <div id="gameMessage" class="game-message" style="display:none;"></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECCIÓN BASES DE DATOS -->
+    <section id="bases-datos" class="section">
+      <h2>📊 Infografía - Introducción a las Bases de Datos</h2>
+      
+      <div class="infografia-container">
+        <p>
+          La siguiente infografía presenta los conceptos fundamentales relacionados con
+          bases de datos, modelos, motores de almacenamiento y ejemplos de aplicación real.
+        </p>
+        
+        <article class="infografia">
+          <figure>
+            <iframe 
+              src="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" 
+              title="Infografía sobre bases de datos">
+            </iframe>
+            <figcaption>Infografía sobre el mundo de las bases de datos</figcaption>
+          </figure>
+          
+          <p>
+            <a href="#" class="download-btn">⬇️ Descargar Infografía PDF</a>
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECCIÓN MULTIMEDIA -->
+    <section id="multimedia" class="section">
+      <h2>🎬 Galería Multimedia</h2>
+      
+      <p>Ejemplos de integración de elementos multimedia dentro del sitio web.</p>
+      
+      <div class="media-grid">
+        <figure>
+          <iframe 
+            width="100%" 
+            height="315" 
+            src="https://www.youtube.com/embed/hdI2bqOjy3c"
+            title="Tutorial CSS3 - Efectos y Animaciones"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen
+            style="border-radius: 10px;">
+          </iframe>
+          <figcaption>Video Tutorial: CSS3 Moderno y Animaciones</figcaption>
+        </figure>
+        
+        <figure>
+          <iframe 
+            width="100%" 
+            height="315" 
+            src="https://www.youtube.com/embed/kN1XP-Bef7w"
+            title="Tutorial Bases de Datos"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen
+            style="border-radius: 10px;">
+          </iframe>
+          <figcaption>Video Tutorial: Introducción a Bases de Datos SQL</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- SECCIÓN CONTACTO -->
+    <section id="contacto" class="section">
+      <h2>📧 Formulario de Contacto</h2>
+      
+      <form id="contactForm" class="contact-form">
+        <div>
+          <label for="nombre">Nombre Completo</label>
+          <input type="text" id="nombre" required>
+        </div>
+        
+        <div>
+          <label for="email">Correo Electrónico</label>
+          <input type="email" id="email" required>
+        </div>
+        
+        <div style="grid-column: 1 / -1;">
+          <label for="mensaje">Mensaje</label>
+          <textarea id="mensaje" required></textarea>
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" class="btn primary">📤 Enviar Mensaje</button>
+          <div id="contactSuccess" class="success" hidden>✓ Mensaje enviado correctamente</div>
+        </div>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      © <span id="year"></span> • Johanna Elizabeth Alfaro Lima • AL241100025 • Universidad Modular Abierta
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    // Memory Game Logic
+    (function() {
+      const board = document.getElementById('board');
+      const movesSpan = document.getElementById('moves');
+      const matchesSpan = document.getElementById('matches');
+      const timerSpan = document.getElementById('timer');
+      const messageBox = document.getElementById('gameMessage');
+      const easyBtn = document.getElementById('easyBtn');
+      const hardBtn = document.getElementById('hardBtn');
+      const startBtn = document.getElementById('startBtn');
+      const totalPairsSpan = document.getElementById('totalPairs');
+
+      const EASY = ['🍎','🍌','🍇','🍓','🍊','🍋','🥝','🍉'];
+      const HARD = ['🐶','🐱','🐭','🐹','🐰','🦊','🐻','🐼','🐨','🐯','🦁','🐸'];
+
+      let deck = [];
+      let first = null;
+      let second = null;
+      let lock = false;
+      let moves = 0;
+      let matches = 0;
+      let totalPairs = 8;
+      let seconds = 0;
+      let timer = null;
+
+      function timeFormat(s) {
+        return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+      }
+
+      function startTimer() {
+        clearInterval(timer);
+        seconds = 0;
+        timerSpan.textContent = timeFormat(seconds);
+        timer = setInterval(() => {
+          seconds++;
+          timerSpan.textContent = timeFormat(seconds);
+        }, 1000);
+      }
+
+      function shuffle(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+      }
+
+      function build(symbols) {
+        const arr = [];
+        symbols.forEach(s => {
+          arr.push({s, id: Math.random()});
+          arr.push({s, id: Math.random()});
+        });
+        return shuffle(arr);
+      }
+
+      function render() {
+        board.innerHTML = '';
+        board.style.gridTemplateColumns = totalPairs <= 8 ? 'repeat(4, 1fr)' : 'repeat(4, 1fr)';
+        
+        deck.forEach(card => {
+          const btn = document.createElement('button');
+          btn.className = 'card';
+          btn.dataset.symbol = card.s;
+          btn.innerHTML = `<div class="front">?</div><div class="back">${card.s}</div>`;
+          btn.addEventListener('click', () => flip(btn));
+          board.appendChild(btn);
+        });
+      }
+
+      function flip(btn) {
+        if (lock) return;
+        if (btn === first) return;
+        if (btn.classList.contains('flipped')) return;
+
+        btn.classList.add('flipped');
+        
+        if (!first) {
+          first = btn;
+          return;
+        }
+
+        second = btn;
+        moves++;
+        movesSpan.textContent = moves;
+
+        if (first.dataset.symbol === second.dataset.symbol) {
+          first.disabled = true;
+          second.disabled = true;
+          matches++;
+          matchesSpan.textContent = matches;
+          reset();
+          
+          if (matches === totalPairs) {
+            win();
+          }
+        } else {
+          lock = true;
+          setTimeout(() => {
+            first.classList.remove('flipped');
+            second.classList.remove('flipped');
+            reset();
+          }, 800);
+        }
+      }
+
+      function reset() {
+        first = null;
+        second = null;
+        lock = false;
+      }
+
+      function win() {
+        clearInterval(timer);
+        messageBox.style.display = 'block';
+        messageBox.textContent = `🎉 ¡Excelente! Completaste el juego en ${moves} movimientos y ${timeFormat(seconds)}.`;
+      }
+
+      function init(mode = 'easy') {
+        clearInterval(timer);
+        moves = 0;
+        matches = 0;
+        movesSpan.textContent = 0;
+        matchesSpan.textContent = 0;
+        messageBox.style.display = 'none';
+        messageBox.textContent = '';
+        
+        totalPairs = mode === 'easy' ? 8 : 12;
+        totalPairsSpan.textContent = totalPairs
